@@ -1,0 +1,40 @@
+---
+### Information of Project Details
+title: "Leaflet"
+author: "Cielo Ann T. Saavedra"
+date: "January 17, 2019"
+output: html_document
+always_allow_html: yes
+---
+## Introduction
+Leaflet is one of the most popular Javascript libraries for
+creating interactive maps. The leaflet R package allows you
+to create your own leaflet maps without needing to know any
+Javascript!
+### Installation
+```{r, eval=TRUE}
+#install.packages("leaflet")
+library(leaflet)
+```
+## My first leaflet map
+```{r, echo=TRUE}
+library(leaflet)
+## Latitude and Longitude of South Cotabato map where pineapple is planted
+bmb <- data.frame( lat = c(10.720150,10.315699, 14.599512, 8.051505, 7.190708)
+, lng = c(122.562103,123.885437, 120.984222, 124.922997, 125.455338) )
+## Pineapple Popups
+pineapplePopups <- c(
+"<a href='https://www.iloilo.gov.ph/'>Iloilo City</a>",
+"<a href='http://www.cebucity.gov.ph/'>Cebu City</a>",
+"<a href='http://manila.gov.ph//'>Manila</a>",
+"<a href='http://www.bukidnon.gov.ph/'>Bukidnon</a>",
+"<a href='http://www.davaocity.gov.ph/'>Davao City</a>"
+)
+
+pineappleIcon <- makeIcon("https://cdn4.iconfinder.com/data/icons/travel-67/100/Airport-04-512.png", 30, 30)
+mp <- bmb %>%
+leaflet() %>%
+addTiles() %>% setView(lng = 124.8472, lat = 6.2245, zoom = 10) %>%
+addMarkers(icon=pineappleIcon, popup = pineapplePopups)
+mp
+```
